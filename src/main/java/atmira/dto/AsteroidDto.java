@@ -3,43 +3,55 @@ package atmira.dto;
 import java.time.LocalDate;
 
 public class AsteroidDto {
-
-	private String nombre; // Obtenido de "name",
-	private double diametro; // Tamaño medio calculado
-	private double  velocidad; // "close_approach_data:relative_velocity:kilometers_per_hour"
-	private LocalDate fecha; // "close_approach_data:close_approach_date"
-	private String planeta; // "close_approach_date:orbiting_body"
 	
-	
-	public String getNombre() {
-		return nombre;
+    private	String name;
+    private Boolean isPotentiallyHazardous;
+    private Double estimatedDiameterMin;
+    private Double estimatedDiameterMax;
+    private Double relativeVelocityKilometersPerHour;
+    private LocalDate approachDate;
+    
+	public String getName() {
+		return name;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public double getDiametro() {
-		return diametro;
+	public Boolean isPotentiallyHazardous() {
+		return isPotentiallyHazardous;
 	}
-	public void setDiametro(double diametro) {
-		this.diametro = diametro;
+	public void setPotentiallyHazardousAsteroid(Boolean isPotentiallyHazardous) {
+		this.isPotentiallyHazardous = isPotentiallyHazardous;
 	}
-	public double getVelocidad() {
-		return velocidad;
+	public Boolean getIsPotentiallyHazardous() {
+		return isPotentiallyHazardous;
 	}
-	public void setVelocidad(double velocidad) {
-		this.velocidad = velocidad;
+	public void setIsPotentiallyHazardous(Boolean isPotentiallyHazardous) {
+		this.isPotentiallyHazardous = isPotentiallyHazardous;
 	}
-	public LocalDate getFecha() {
-		return fecha;
+	public Double getEstimatedDiameterMin() {
+		return estimatedDiameterMin;
 	}
-	public void setFecha(LocalDate fecha) {
-		this.fecha = fecha;
+	public void setEstimatedDiameterMin(Double estimatedDiameterMin) {
+		this.estimatedDiameterMin = estimatedDiameterMin;
 	}
-	public String getPlaneta() {
-		return planeta;
+	public Double getEstimatedDiameterMax() {
+		return estimatedDiameterMax;
 	}
-	public void setPlaneta(String planeta) {
-		this.planeta = planeta;
+	public void setEstimatedDiameterMax(Double estimatedDiameterMax) {
+		this.estimatedDiameterMax = estimatedDiameterMax;
 	}
-
+	public Double getRelativeVelocityKilometersPerHour() {
+		return relativeVelocityKilometersPerHour;
+	}
+	public void setRelativeVelocityKilometersPerHour(Double relativeVelocityKilometersPerHour) {
+		this.relativeVelocityKilometersPerHour = relativeVelocityKilometersPerHour;
+	}
+	public LocalDate getApproachDate() {
+		return approachDate;
+	}
+	public void setApproachDate(LocalDate approachDate) {
+		this.approachDate = approachDate;
+	}
+    
 }
