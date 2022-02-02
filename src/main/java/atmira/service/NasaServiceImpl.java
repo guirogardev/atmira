@@ -62,8 +62,8 @@ public class NasaServiceImpl implements NasaService {
 	    		JsonObject approachDataJson = asteroidJson.get("close_approach_data").getAsJsonArray().get(0).getAsJsonObject();
 	    		
 		    	asteroide.setName(asteroidJson.get("name").getAsString());
-		    	asteroide.setPotentiallyHazardousAsteroid(asteroidJson.get("is_potentially_hazardous_asteroid").getAsBoolean());
-		    	
+//		    	asteroide.setIsPotentiallyHazardous(asteroidJson.get("is_potentially_hazardous_asteroid").getAsBoolean());
+		    	asteroide.setIsPotentiallyHazardous(true);
 		    	asteroide.setEstimatedDiameterMax(kilometersJson.get("estimated_diameter_max").getAsDouble());
 		    	asteroide.setEstimatedDiameterMin(kilometersJson.get("estimated_diameter_min").getAsDouble());
 		    	

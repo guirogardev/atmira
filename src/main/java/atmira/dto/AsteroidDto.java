@@ -17,12 +17,6 @@ public class AsteroidDto {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Boolean isPotentiallyHazardous() {
-		return isPotentiallyHazardous;
-	}
-	public void setPotentiallyHazardousAsteroid(Boolean isPotentiallyHazardous) {
-		this.isPotentiallyHazardous = isPotentiallyHazardous;
-	}
 	public Boolean getIsPotentiallyHazardous() {
 		return isPotentiallyHazardous;
 	}
@@ -52,6 +46,10 @@ public class AsteroidDto {
 	}
 	public void setApproachDate(LocalDate approachDate) {
 		this.approachDate = approachDate;
+	}
+	
+	public Double getAverageDiameter() {
+		return (this.estimatedDiameterMax + this.estimatedDiameterMin)/2;
 	}
     
 }
