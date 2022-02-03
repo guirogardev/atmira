@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import atmira.dto.AsteroidDto;
+import atmira.dto.FormattedAsteroidDto;
 import atmira.service.AtmiraService;
 
 @RestController
@@ -19,7 +19,7 @@ public class AtmiraController {
 	private AtmiraService service;
 	
 	@GetMapping(value = "/asteroids")
-    public List<AsteroidDto> getWorstsAsteroids(@RequestParam(required = true) Integer days) {
+    public List<FormattedAsteroidDto> getWorstsAsteroids(@RequestParam(required = true) Integer days) {
         return this.service.getWorstsAsteroids(days);
     }
 }

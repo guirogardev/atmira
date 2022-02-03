@@ -10,6 +10,7 @@ public class AsteroidDto {
     private Double estimatedDiameterMax;
     private Double relativeVelocityKilometersPerHour;
     private LocalDate approachDate;
+    private String orbitingBody;
     
 	public String getName() {
 		return name;
@@ -46,8 +47,13 @@ public class AsteroidDto {
 	}
 	public void setApproachDate(LocalDate approachDate) {
 		this.approachDate = approachDate;
+	}	
+	public String getOrbitingBody() {
+		return orbitingBody;
 	}
-	
+	public void setOrbitingBody(String orbitingBody) {
+		this.orbitingBody = orbitingBody;
+	}
 	public Double getAverageDiameter() {
 		return (this.estimatedDiameterMax + this.estimatedDiameterMin)/2;
 	}

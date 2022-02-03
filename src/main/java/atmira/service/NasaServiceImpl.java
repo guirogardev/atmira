@@ -20,13 +20,9 @@ public class NasaServiceImpl implements NasaService {
 	private static final String NASA_API_KEY = "zdUP8ElJv1cehFM0rsZVSQN7uBVxlDnu4diHlLSb";
 
 	@Override
-	public List<AsteroidDto> retrieveAsteroidListInfo(LocalDate start, LocalDate end) {
-		
-		start = LocalDate.now();
-		end = LocalDate.now().plusDays(3);
-		
+	public List<AsteroidDto> retrieveAsteroidListInfo(LocalDate start, LocalDate end) {		
 		RestTemplate restTemplate = new RestTemplate();
-		String uri = "https://api.nasa.gov/neo/rest/v1/feed?start_date=2022-02-02&end_date=2022-02-05&api_key=" + NASA_API_KEY;
+		String uri = "https://api.nasa.gov/neo/rest/v1/feed?start_date=" + start.toString() + "&end_date=" + end.toString() + "&api_key=" + NASA_API_KEY;
 		String jsonString = restTemplate.getForObject(uri, String.class);
 		
 		return this.nasaJsonToAsteroidList(jsonString, start, end);
@@ -50,11 +46,9 @@ public class NasaServiceImpl implements NasaService {
 	    
 	    List<AsteroidDto> asteroidesDto = new ArrayList<>();
 	    while (start.isBefore(end)) {
-	    	
-	    	
+
 	    	JsonArray asteroidsDateJson = nearEarthObjects.get(start.toString()).getAsJsonArray();
 
-	    	
 	    	for (JsonElement asteroidJsonElement : asteroidsDateJson) {
 	    		AsteroidDto asteroide = new AsteroidDto();
 	    		JsonObject asteroidJson = asteroidJsonElement.getAsJsonObject();
@@ -62,8 +56,8 @@ public class NasaServiceImpl implements NasaService {
 	    		JsonObject approachDataJson = asteroidJson.get("close_approach_data").getAsJsonArray().get(0).getAsJsonObject();
 	    		
 		    	asteroide.setName(asteroidJson.get("name").getAsString());
-//		    	asteroide.setIsPotentiallyHazardous(asteroidJson.get("is_potentially_hazardous_asteroid").getAsBoolean());
-		    	asteroide.setIsPotentiallyHazardous(true);
+		    	asteroide.setIsPotentiallyHazardous(asteroidJson.get("is_potentially_hazardous_asteroid").getAsBoolean());
+		    	
 		    	asteroide.setEstimatedDiameterMax(kilometersJson.get("estimated_diameter_max").getAsDouble());
 		    	asteroide.setEstimatedDiameterMin(kilometersJson.get("estimated_diameter_min").getAsDouble());
 		    	
@@ -74,7 +68,7 @@ public class NasaServiceImpl implements NasaService {
 		    			);
 		    	
 		    	asteroide.setApproachDate(LocalDate.parse(approachDataJson.get("close_approach_date").getAsString()));
-		    	
+		    	asteroide.setOrbitingBody(approachDataJson.get("orbiting_body").getAsString());
 		    	asteroidesDto.add(asteroide);
 	    	}
 	    	start = start.plusDays(1);

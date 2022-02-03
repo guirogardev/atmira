@@ -2,14 +2,13 @@ package atmira.dto;
 
 import java.time.LocalDate;
 
-public class AsteroidDto {
+public class FormattedAsteroidDto {
 
-	private String nombre; // Obtenido de "name",
-	private double diametro; // Tamaño medio calculado
-	private double  velocidad; // "close_approach_data:relative_velocity:kilometers_per_hour"
-	private LocalDate fecha; // "close_approach_data:close_approach_date"
-	private String planeta; // "close_approach_date:orbiting_body"
-	
+	private String nombre;
+	private double diametro;
+	private double velocidad;
+	private LocalDate fecha;
+	private String planeta;
 	
 	public String getNombre() {
 		return nombre;
