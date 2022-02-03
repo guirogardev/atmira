@@ -18,6 +18,19 @@ import atmira.dto.AsteroidDto;
 public class NasaServiceImpl implements NasaService {
 	
 	private static final String NASA_API_KEY = "zdUP8ElJv1cehFM0rsZVSQN7uBVxlDnu4diHlLSb";
+	
+	private static final String NEAR_EARTH_OBJECTS_JSON_KEY = "near_earth_objects";
+	private static final String ESTIMATED_DIAMETER_JSON_KEY = "estimated_diameter";
+	private static final String KILOMETERS_JSON_KEY = "kilometers";
+	private static final String CLOSE_APPROACH_DATA_JSON_KEY = "close_approach_data";
+	private static final String NAME_JSON_KEY = "name";
+	private static final String HAZARDOUS_JSON_KEY = "is_potentially_hazardous_asteroid";
+	private static final String DIAMETER_MAX_JSON_KEY = "estimated_diameter_max";
+	private static final String DIAMETER_MIN_JSON_KEY = "estimated_diameter_min";
+	private static final String RELATIVE_VELOCITY_JSON_KEY = "relative_velocity";
+	private static final String KILOMETERS_HOUR_JSON_KEY = "kilometers_per_hour";
+	private static final String CLOSE_APPROACH_DATE_JSON_KEY = "close_approach_date";
+	private static final String ORBITING_BODY_JSON_KEY = "orbiting_body";
 
 	@Override
 	public List<AsteroidDto> retrieveAsteroidListInfo(LocalDate start, LocalDate end) {
@@ -42,7 +55,7 @@ public class NasaServiceImpl implements NasaService {
 	private List<AsteroidDto> nasaJsonToAsteroidList(String jsonString, LocalDate start, LocalDate end) {
 		Gson gson = new Gson();
 		JsonObject data = gson.fromJson(jsonString, JsonObject.class);
-	    JsonObject nearEarthObjects = data.get("near_earth_objects").getAsJsonObject();
+	    JsonObject nearEarthObjects = data.get(NEAR_EARTH_OBJECTS_JSON_KEY).getAsJsonObject();
 	    
 	    List<AsteroidDto> asteroidesDto = new ArrayList<>();
 	    while (start.isBefore(end)) {
@@ -52,23 +65,23 @@ public class NasaServiceImpl implements NasaService {
 	    	for (JsonElement asteroidJsonElement : asteroidsDateJson) {
 	    		AsteroidDto asteroide = new AsteroidDto();
 	    		JsonObject asteroidJson = asteroidJsonElement.getAsJsonObject();
-	    		JsonObject kilometersJson = asteroidJson.get("estimated_diameter").getAsJsonObject().get("kilometers").getAsJsonObject();
-	    		JsonObject approachDataJson = asteroidJson.get("close_approach_data").getAsJsonArray().get(0).getAsJsonObject();
+	    		JsonObject kilometersJson = asteroidJson.get(ESTIMATED_DIAMETER_JSON_KEY).getAsJsonObject().get(KILOMETERS_JSON_KEY).getAsJsonObject();
+	    		JsonObject approachDataJson = asteroidJson.get(CLOSE_APPROACH_DATA_JSON_KEY).getAsJsonArray().get(0).getAsJsonObject();
 	    		
-		    	asteroide.setName(asteroidJson.get("name").getAsString());
-		    	asteroide.setIsPotentiallyHazardous(asteroidJson.get("is_potentially_hazardous_asteroid").getAsBoolean());
+		    	asteroide.setName(asteroidJson.get(NAME_JSON_KEY).getAsString());
+		    	asteroide.setIsPotentiallyHazardous(asteroidJson.get(HAZARDOUS_JSON_KEY).getAsBoolean());
 		    	
-		    	asteroide.setEstimatedDiameterMax(kilometersJson.get("estimated_diameter_max").getAsDouble());
-		    	asteroide.setEstimatedDiameterMin(kilometersJson.get("estimated_diameter_min").getAsDouble());
+		    	asteroide.setEstimatedDiameterMax(kilometersJson.get(DIAMETER_MAX_JSON_KEY).getAsDouble());
+		    	asteroide.setEstimatedDiameterMin(kilometersJson.get(DIAMETER_MIN_JSON_KEY).getAsDouble());
 		    	
 		    	asteroide.setRelativeVelocityKilometersPerHour(
 		    			approachDataJson
-		    			.get("relative_velocity").getAsJsonObject()
-		    			.get("kilometers_per_hour").getAsDouble()
+		    			.get(RELATIVE_VELOCITY_JSON_KEY).getAsJsonObject()
+		    			.get(KILOMETERS_HOUR_JSON_KEY).getAsDouble()
 		    			);
 		    	
-		    	asteroide.setApproachDate(LocalDate.parse(approachDataJson.get("close_approach_date").getAsString()));
-		    	asteroide.setOrbitingBody(approachDataJson.get("orbiting_body").getAsString());
+		    	asteroide.setApproachDate(LocalDate.parse(approachDataJson.get(CLOSE_APPROACH_DATE_JSON_KEY).getAsString()));
+		    	asteroide.setOrbitingBody(approachDataJson.get(ORBITING_BODY_JSON_KEY).getAsString());
 		    	asteroidesDto.add(asteroide);
 	    	}
 	    	start = start.plusDays(1);
